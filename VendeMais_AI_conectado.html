@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VendeMais AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f4f9;--cd:#fff;--tx:#1b1838;--mu:#68658a;--pr:#4527c8;--pl:#ece8fb;--bd:#e2e0ee;--ok:#15803d;--er:#c62828;--ac:#c2813b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#13111f;--cd:#1d1a2e;--tx:#ece9fa;--mu:#a09cc0;--pr:#9b86ff;--pl:#2a2447;--bd:#322d4d;--ok:#4ade80;--er:#f87171}}
+:root[data-theme=dark]{--bg:#13111f;--cd:#1d1a2e;--tx:#ece9fa;--mu:#a09cc0;--pr:#9b86ff;--pl:#2a2447;--bd:#322d4d;--ok:#4ade80;--er:#f87171}
+*{box-sizing:border-box}html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--tx);font:500 15px/1.5 Manrope,system-ui,sans-serif}
+.app{display:flex;min-height:100vh}
+.side{width:220px;padding:20px 12px;background:var(--cd);border-right:1px solid var(--bd);position:sticky;top:0;height:100vh;flex:none}
+.logo{font-weight:800;font-size:19px;padding:4px 10px 20px;color:var(--pr)}.logo i{font-style:normal;color:var(--ac)}
+.nb{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border:0;background:none;color:var(--mu);font:700 14px Manrope,sans-serif;border-radius:10px;cursor:pointer;margin-bottom:2px}
+.nb.on{background:var(--pl);color:var(--pr)}.nb:hover{color:var(--tx)}
+.i{width:19px;height:19px;flex:none}
+main{flex:1;min-width:0;padding:28px;max-width:1080px;margin:0 auto}
+h1{font-size:26px;margin:0 0 4px;letter-spacing:-.4px}h2{font-size:17px;margin:0 0 12px}.sub{color:var(--mu);margin:0 0 20px}
+.card{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:18px;margin-bottom:16px}
+.g{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:10px;border:1px solid var(--bd);background:var(--cd);color:var(--tx);font:700 14px Manrope,sans-serif;cursor:pointer}
+.btn:hover{border-color:var(--pr)}.btn.p{background:var(--pr);border-color:var(--pr);color:#fff}.btn.d{color:var(--er)}.btn.s{padding:6px 10px;font-size:13px}.btn:disabled{opacity:.6;cursor:wait}
+.big{padding:13px 22px;font-size:15px}
+label{display:block;font-weight:700;font-size:13px;margin:12px 0 5px}label small{color:var(--mu);font-weight:500}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:500 14px Manrope,sans-serif}
+input[type=color]{padding:2px;height:42px}textarea{min-height:80px;resize:vertical}
+input:focus,select:focus,textarea:focus,.btn:focus-visible,.nb:focus-visible{outline:2px solid var(--pr);outline-offset:1px}
+.stat b{font-size:30px;display:block;letter-spacing:-1px}.stat span{color:var(--mu);font-size:13px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+.item{padding:11px 0;border-top:1px solid var(--bd)}.item:first-child{border-top:0}
+.tag{display:inline-block;padding:2px 9px;border-radius:99px;background:var(--pl);color:var(--pr);font-size:12px;font-weight:700}
+.tag.demo{background:#fdf0dd;color:#8a5517}.empty{text-align:center;color:var(--mu);padding:26px 10px}
+.banner{background:#fdf0dd;color:#7a4a12;border-radius:10px;padding:9px 13px;font-size:13px;margin-bottom:16px}
+.hero{background:var(--pr);color:#fff;border-radius:16px;padding:24px;margin-bottom:16px}.hero h1{color:#fff}.hero .sub{color:#d9d1ff;margin-bottom:16px}
+.hero .btn.p{background:#fff;color:#3a1fa8;border-color:#fff}
+.sec{border-top:1px solid var(--bd);padding:12px 0}.sec:first-child{border-top:0}.sec h3{margin:0 0 6px;font-size:14px;color:var(--pr)}.sec p{margin:0;white-space:pre-wrap}
+.cal{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.cal .h{font-size:12px;color:var(--mu);text-align:center;font-weight:700}
+.day{min-height:84px;border:1px solid var(--bd);border-radius:8px;padding:4px;cursor:pointer;background:var(--cd);overflow:hidden}.day.off{border:0;background:none;cursor:default}
+.day.hoje{border-color:var(--pr);box-shadow:inset 0 0 0 1px var(--pr)}.day b{font-size:12px;color:var(--mu)}
+.chip{display:block;font-size:11px;padding:2px 5px;border-radius:5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:700;border-left:3px solid}
+.st-ideia{background:#eee;border-color:#888;color:#333}.st-producao{background:#fdf0dd;border-color:var(--ac);color:#6b400f}.st-pronta{background:#e0f2e6;border-color:#15803d;color:#145c2e}.st-publicada{background:var(--pl);border-color:var(--pr);color:var(--pr)}
+.modal{position:fixed;inset:0;background:#0008;display:flex;align-items:flex-start;justify-content:center;padding:20px 12px;overflow:auto;z-index:20}
+.mb{background:var(--cd);border-radius:16px;padding:20px;width:100%;max-width:560px;margin:auto}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);padding:11px 18px;border-radius:10px;color:#fff;font-weight:700;z-index:30;display:none;max-width:90%}
+@media(max-width:760px){.app{display:block}.side{position:fixed;bottom:0;left:0;right:0;top:auto;width:100%;height:auto;display:flex;padding:4px 4px calc(4px + env(safe-area-inset-bottom,0px));border-right:0;border-top:1px solid var(--bd);z-index:10}.logo{display:none}.side nav{display:flex;width:100%}
+.nb{flex-direction:column;gap:2px;font-size:11px;padding:6px 2px;justify-content:center;align-items:center}main{padding:18px 14px 90px}.g2,.g3{grid-template-columns:1fr}.day{min-height:60px}.chip{font-size:10px}#toast{bottom:100px}}
+</style></head><body>
+<div class="app"><aside class="side"><div class="logo">Vende<i>Mais</i> AI</div><nav id="nav"></nav></aside><main id="main"></main></div>
+<div id="toast" role="status"></div><div id="md"></div>
+<script>
+const P={home:'<path d="M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/>',building:'<path d="M4 21V5l8-3v19M12 9h8v12M8 8h1M8 12h1M8 16h1"/>',spark:'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',lib:'<path d="M4 4h4v16H4zM10 4h4v16h-4zM17 5l3 1-4 15-3-1z"/>',cal:'<path d="M4 5h16v16H4zM4 10h16M8 3v4M16 3v4"/>'};
+const ic=n=>`<svg class="i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+const $=s=>document.querySelector(s),pad=n=>String(n).padStart(2,'0'),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>'i'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const hoje=(d=new Date())=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const OBJ={vender:'Vender',novidade:'Divulgar novidade',contatos:'Gerar contatos',oferta:'Promover oferta',marca:'Fortalecer a marca'},CAN=['Instagram','Facebook','WhatsApp'],FMT=['Post','Carrossel','Stories','Roteiro de vídeo curto'];
+const ST={ideia:'Ideia',producao:'Em produção',pronta:'Pronta',publicada:'Publicada'};
+const SEC=[['titulo','Título publicitário'],['texto','Texto principal'],['legenda','Legenda completa'],['cta','Chamada para ação'],['stories','3 ideias de Stories'],['roteiro','Roteiro de Reel (até 30 segundos)'],['arte','Direção visual para a arte'],['abordagem','Sugestão de abordagem comercial']];
+
+/* ---------- Dados (salvos no navegador; sem backend) ---------- */
+let store=null;
+function seed(){const t=hoje(),d=new Date();d.setDate(d.getDate()+3);const d2=new Date();d2.setDate(d2.getDate()+8);
+ const p={nome:'Sua Loja de Móveis (exemplo)',segmento:'Móveis e decoração',desc:'',publico:'Famílias que estão montando ou renovando a casa',cidade:'',dif:'',tom:'Acolhedor e direto',cor1:'#4527c8',cor2:'#c2813b',logo:''};
+ const c=gerarCampanha({produto:'Sofá retrátil 3 lugares',desc:'Tecido suede, braços largos, assento retrátil.',preco:'',oferta:'',publico:p.publico,objetivo:'novidade',canal:'Instagram',formato:'Carrossel'},p);
+ const c2=gerarCampanha({produto:'Kit de almofadas decorativas',desc:'Kit com 4 almofadas em tons neutros.',preco:'',oferta:'Condição especial para o kit completo',publico:p.publico,objetivo:'oferta',canal:'WhatsApp',formato:'Post'},p);
+ const a={...c,id:uid(),criada:t,demo:true},b={...c2,id:uid(),criada:t,demo:true};
+ return{profile:p,campaigns:[a,b],schedule:[{id:uid(),titulo:a.titulo,campId:a.id,data:hoje(d),status:'producao',demo:true},{id:uid(),titulo:b.titulo,campId:b.id,data:hoje(d2),status:'ideia',demo:true}]}}
+function load(){try{const r=localStorage.getItem('vendemais_v1');if(r){store=JSON.parse(r);return}}catch(e){}store=seed()}
+function save(){try{localStorage.setItem('vendemais_v1',JSON.stringify(store));return true}catch(e){toast('Não foi possível salvar neste navegador. Suas alterações valem só até fechar a página.','err');return false}}
+function toast(m,t='ok'){const e=$('#toast');e.textContent=m;e.style.background=t==='ok'?'#15803d':'#c62828';e.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>e.style.display='none',3200)}
+async function copiar(txt){try{await navigator.clipboard.writeText(txt);toast('Copiado!')}catch(e){try{const a=document.createElement('textarea');a.value=txt;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();toast('Copiado!')}catch(x){toast('Não foi possível copiar. Selecione o texto e copie manualmente.','err')}}}
+
+/* ---------- GERADOR DEMONSTRATIVO ----------
+   Esta função NÃO usa IA real. Ela monta textos a partir do que foi informado.
+   Na versão comercial, será trocada por uma chamada a um backend seguro que usa um provedor de IA.
+   Mantenha a mesma entrada (dados do formulário + perfil) e a mesma saída (8 campos). */
+function gerarCampanha(i,p){p={...p,tom:i.tom||p.tom,dif:i.dif||p.dif};
+ const n=i.produto.trim(),d=i.desc.trim(),loc=p.cidade?` em ${p.cidade}`:'',pr=i.preco?` Preço: ${i.preco}.`:'',of=i.oferta?` ${i.oferta}.`:'';
+ const cta=i.cta&&i.cta.trim()||{WhatsApp:'Chame a gente no WhatsApp e tire suas dúvidas.',Instagram:'Envie uma mensagem no direct ou visite nosso perfil.',Facebook:'Comente ou envie uma mensagem para saber mais.'}[i.canal];
+ const ab={vender:'Foque nos benefícios no dia a dia. Diga o que o cliente ganha ao ter o produto em casa.',novidade:'Apresente o produto como novidade e convide o cliente a conhecer de perto.',contatos:'Convide para uma conversa. Pergunte o que a pessoa procura para a casa.',oferta:'Deixe a condição especial bem visível e informe até quando vale (se houver prazo).',marca:'Mostre o cuidado da loja e o jeito de atender. O produto é um exemplo disso.'}[i.objetivo];
+ const gancho={vender:`Que tal ${n} para a sua casa?`,novidade:`Novidade: ${n}`,contatos:`Procurando ${n}? Vamos conversar.`,oferta:`Oferta: ${n}`,marca:`${p.nome||'Nossa loja'} e o jeito de cuidar da sua casa`}[i.objetivo];
+ return{produto:n,objetivo:i.objetivo,canal:i.canal,formato:i.formato,
+ titulo:gancho,
+ texto:`${n}. ${d}${pr}${of}${i.publico?`\nFeito para: ${i.publico}.`:''}`,
+ legenda:`${gancho}\n\n${d}${pr}${of}\n\n${p.nome?`${p.nome}${loc}`:''}${p.dif?`\n${p.dif}`:''}\n\n${cta}`,
+ cta,
+ stories:`1. Apresentação: foto de ${n} com a pergunta "Já viu este?"\n2. Detalhes: mostre as características informadas (${d})\n3. Chamada: enquete "Combina com a sua casa?" e, no final, ${cta}`,
+ roteiro:`Duração total: cerca de 25 s (limite de 30 s).\nAbertura (0-5 s): mostre ${n} e diga "${gancho}".\nMeio (5-20 s): mostre os detalhes: ${d}\nFechamento (20-25 s): ${cta}`,
+ arte:`Formato: ${i.formato} para ${i.canal}. Foto real do produto, boa luz natural, ambiente limpo. Use as cores da marca (${p.cor1||'principal'} e ${p.cor2||'destaque'}) e o nome do produto em destaque. Tom de voz da marca: ${p.tom||'a definir'}.${p.logo?' Aplique a logo cadastrada.':''}`,
+ abordagem:ab+(p.tom?`\nMantenha o tom de voz da marca: ${p.tom}.`:'')+(p.dif?`\nDestaque os diferenciais cadastrados: ${p.dif}.`:'')}}
+
+/* ---------- CAMADA DE GERAÇÃO (ponto de troca para IA real) ----------
+   A tela só chama GeradorIA.gerar(entrada, perfil). (Legado: a decisão demo/IA agora fica no ServicoIA, abaixo.) Para usar IA real, use uma chamada
+   ao seu backend (nunca coloque chaves de API aqui). A resposta deve ter todos os campos de SEC. */
+const REGRAS_IA='Use somente os dados informados. Não invente preços, descontos, características, garantias ou prazos. Escreva em português do Brasil.';
+/* Referência legada, não usada: o prompt oficial agora fica no servidor (servidor/index.js). */
+function montarPrompt(i,p){return `${REGRAS_IA}\nEmpresa: ${p.nome}; segmento: ${p.segmento}; tom de voz: ${p.tom}; diferenciais: ${p.dif||'não informado'}; cidade: ${p.cidade||'não informada'}.\nProduto: ${i.produto}; descrição: ${i.desc}; preço: ${i.preco||'não informado'}; oferta: ${i.oferta||'não informada'}; público: ${i.publico}; objetivo: ${OBJ[i.objetivo]}; plataforma: ${i.canal}; formato: ${i.formato}.\nEntregue: título, texto principal, legenda, chamada para ação, 3 ideias de Stories, roteiro de Reel de até 30 s, direção visual e abordagem comercial.`}
+function validarPacote(c){const f=SEC.map(s=>s[0]).filter(k=>!c||typeof c[k]!=='string'||!c[k].trim());if(f.length)throw new Error('A resposta veio incompleta (faltam: '+f.join(', ')+').');return c}
+/* SERVIÇO DE IA: sem VM_CONFIG.apiBase roda a demonstração local (nenhuma chamada paga). Com o endereço do seu servidor (pasta servidor), chama o backend, que guarda a chave da OpenAI. */
+const VM_CONFIG={apiBase:'https://vendemais-ai-backend.onrender.com'};
+let iaOnline=false,variacao=0;
+const ServicoIA={
+ modo(){return VM_CONFIG.apiBase?'api':'demo'},
+ async status(){const r=await fetch(VM_CONFIG.apiBase+'/api/status');if(!r.ok)throw new Error('sem resposta');return(await r.json()).configurado===true},
+ async gerar(i,p,o={}){
+  if(this.modo()==='demo'){await new Promise(r=>setTimeout(r,700));return{...validarPacote(gerarCampanha(i,p)),fonte:'demo'}}
+  let r;try{r=await fetch(VM_CONFIG.apiBase+'/api/campanhas/gerar',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({entrada:i,empresa:{nome:p.nome,segmento:p.segmento,desc:p.desc,cidade:p.cidade,cores:[p.cor1,p.cor2]},variacao:o.variacao||0})})}catch(e){throw new Error('Não foi possível falar com o servidor de IA. Verifique se ele está no ar.')}
+  const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.erro||'O servidor de IA retornou um erro ('+r.status+').');
+  const c=validarPacote(d.pacote),x={produto:i.produto,objetivo:i.objetivo,canal:i.canal,formato:i.formato,fonte:'ia'};SEC.forEach(([k])=>x[k]=String(c[k]).trim());return x}};
+const GeradorIA={async gerar(i,p,o){return ServicoIA.gerar(i,p,o)}};
+function bannerIA(){return ServicoIA.modo()==='demo'?'<b>Modo demonstração:</b> a IA ainda não está conectada. Os textos são montados por regras simples e <b>não têm qualidade final de copywriting</b>. Nenhuma chamada paga é feita.':(iaOnline?'<b>IA conectada</b> pelo servidor. Cada geração pode gerar custo na sua conta da OpenAI.':'Servidor configurado, mas a IA não respondeu. Verifique o servidor e o arquivo .env.')}
+async function checarIA(){if(ServicoIA.modo()==='demo')return;try{iaOnline=await ServicoIA.status()}catch(e){iaOnline=false}const b=$('#iab');if(b)b.innerHTML=bannerIA()}
+
+/* ---------- Páginas ---------- */
+let page='dash',view={q:'',o:'',c:''},cal={y:new Date().getFullYear(),m:new Date().getMonth()},gen=null;
+const NAV=[['dash','Início','home'],['perfil','Empresa','building'],['criar','Campanha','spark'],['lib','Biblioteca','lib'],['cal','Agenda','cal']];
+function go(p){page=p;render();scrollTo(0,0)}
+function render(){$('#nav').innerHTML=NAV.map(n=>`<button class="nb ${page===n[0]?'on':''}" onclick="go('${n[0]}')">${ic(n[2])}${n[1]}</button>`).join('');$('#main').innerHTML=PG[page]();if(page==='lib')libList();if(page==='criar')checarIA()}
+const PG={
+dash(){const t=hoje(),mes=t.slice(0,7),h=new Date().getHours(),sd=h<12?'Bom dia':h<18?'Boa tarde':'Boa noite';
+ const prox=store.schedule.filter(s=>s.data>=t&&s.status!=='publicada').sort((a,b)=>a.data.localeCompare(b.data)).slice(0,4);
+ const rec=[...store.campaigns].sort((a,b)=>b.criada.localeCompare(a.criada)).slice(0,4);
+ const dm=store.campaigns.some(c=>c.demo)||store.schedule.some(s=>s.demo);
+ return `${dm?'<div class="banner"><b>Dados demonstrativos:</b> as campanhas marcadas com "Exemplo" são fictícias. Exclua quando quiser.</div>':''}
+ <div class="hero"><h1>${sd}!</h1><p class="sub">${esc(store.profile.nome||'Sua empresa')}</p><button class="btn p big" onclick="go('criar')">${ic('spark')}Criar campanha</button></div>
+ <div class="g g3"><div class="card stat"><b>${store.campaigns.filter(c=>c.criada.startsWith(mes)).length}</b><span>Campanhas criadas no mês</span></div><div class="card stat"><b>${store.campaigns.length}</b><span>Conteúdos salvos</span></div><div class="card stat"><b>${prox.length}</b><span>Próximas publicações</span></div></div>
+ <div class="g g2"><div class="card"><h2>Próximas publicações</h2>${prox.length?prox.map(s=>`<div class="item row sp"><span>${esc(s.titulo)}<br><small style="color:var(--mu)">${s.data.split('-').reverse().join('/')}</small></span><span class="chip st-${s.status}" style="display:inline-block">${ST[s.status]}</span></div>`).join(''):'<div class="empty">Nada planejado. Programe uma campanha no calendário.</div>'}</div>
+ <div class="card"><h2>Campanhas recentes</h2>${rec.length?rec.map(c=>`<div class="item row sp"><span>${esc(c.titulo)}${c.demo?' <span class="tag demo">Exemplo</span>':''}<br><small style="color:var(--mu)">${c.canal} · ${OBJ[c.objetivo]}</small></span><button class="btn s" onclick="abrir('${c.id}')">Abrir</button></div>`).join(''):'<div class="empty">Você ainda não criou campanhas.</div>'}</div></div>
+ <div class="card"><h2>Atalhos</h2><div class="row"><button class="btn" onclick="go('perfil')">${ic('building')}Perfil da empresa</button><button class="btn" onclick="go('lib')">${ic('lib')}Biblioteca</button><button class="btn" onclick="go('cal')">${ic('cal')}Calendário</button></div></div>`},
+perfil(){const p=store.profile,f=(id,l,v,t='input')=>`<label>${l}</label>${t==='input'?`<input id="${id}" value="${esc(v)}">`:`<textarea id="${id}">${esc(v)}</textarea>`}`;
+ return `<h1>Perfil da empresa</h1><p class="sub">Estes dados personalizam todas as campanhas geradas.</p><div class="card">${f('p_nome','Nome do negócio',p.nome)}${f('p_seg','Segmento',p.segmento)}${f('p_desc','Descrição da empresa',p.desc,'t')}${f('p_pub','Público-alvo',p.publico,'t')}${f('p_cid','Cidade ou região atendida',p.cidade)}${f('p_dif','Diferenciais comerciais',p.dif,'t')}${f('p_tom','Tom de voz da marca',p.tom)}
+ <div class="g g2"><div><label>Cor principal</label><input type="color" id="p_c1" value="${p.cor1}"></div><div><label>Cor de destaque</label><input type="color" id="p_c2" value="${p.cor2}"></div></div>
+ <label>Logo <small>(opcional, até 300 KB)</small></label>${p.logo?`<img src="${p.logo}" alt="Logo" style="max-height:60px;display:block;margin-bottom:8px">`:''}<input type="file" id="p_logo" accept="image/*">
+ <div style="margin-top:18px"><button class="btn p" onclick="salvarPerfil()">Salvar perfil</button></div></div>`},
+criar(){const p=store.profile,sel=(id,o)=>`<select id="${id}">${o}</select>`,op=a=>a.map(x=>`<option>${x}</option>`).join('');
+ return `<h1>Criar campanha</h1><p class="sub">Preencha os dados do produto. Só usamos o que você informar.</p><div class="banner" id="iab">${bannerIA()}</div>
+ <div class="card"><label>Nome do produto ou serviço</label><input id="f_prod" placeholder="Ex.: Mesa de jantar 6 lugares">
+ <label>Características confirmadas</label><textarea id="f_desc" placeholder="Só o que é verdade: material, medidas, cores, usos... A IA não inventa o que faltar."></textarea>
+ <div class="g g2"><div><label>Preço <small>(opcional)</small></label><input id="f_preco" placeholder="Ex.: R$ 1.990"></div><div><label>Oferta ou condição <small>(opcional)</small></label><input id="f_of"></div></div>
+ <label>Público-alvo</label><input id="f_pub" value="${esc(p.publico)}"><div class="g g2"><div><label>Tom de voz</label><input id="f_tom" value="${esc(p.tom)}"></div><div><label>Chamada para ação desejada <small>(opcional)</small></label><input id="f_cta" placeholder="Ex.: Chame no WhatsApp"></div></div><label>Diferenciais <small>(da empresa ou do produto)</small></label><input id="f_dif" value="${esc(p.dif)}">
+ <div class="g g3"><div><label>Objetivo</label>${sel('f_obj',Object.entries(OBJ).map(([k,v])=>`<option value="${k}">${v}</option>`).join(''))}</div><div><label>Plataforma de destino</label>${sel('f_can',op(CAN))}</div><div><label>Formato</label>${sel('f_fmt',op(FMT))}</div></div>
+ <div style="margin-top:18px"><button class="btn p big" id="gb" onclick="gerar()">Gerar campanha</button></div></div><div id="res">${gen?resultado():''}</div>`},
+lib(){return `<h1>Biblioteca de conteúdos</h1><p class="sub">Campanhas salvas, prontas para editar e copiar.</p><div class="card"><div class="g g3"><input id="q" placeholder="Pesquisar por nome" value="${esc(view.q)}" oninput="view.q=this.value;libList()"><select onchange="view.o=this.value;libList()"><option value="">Todos os objetivos</option>${Object.entries(OBJ).map(([k,v])=>`<option value="${k}" ${view.o===k?'selected':''}>${v}</option>`).join('')}</select><select onchange="view.c=this.value;libList()"><option value="">Todos os canais</option>${CAN.map(c=>`<option ${view.c===c?'selected':''}>${c}</option>`).join('')}</select></div></div><div id="ll"></div>`},
+cal(){const{y,m}=cal,first=new Date(y,m,1).getDay(),nd=new Date(y,m+1,0).getDate();let c='';
+ for(let k=0;k<first;k++)c+='<div class="day off"></div>';
+ for(let d=1;d<=nd;d++){const iso=`${y}-${pad(m+1)}-${pad(d)}`;c+=`<div class="day ${iso===hoje()?'hoje':''}" onclick="sched('','${iso}')"><b>${d}</b>${store.schedule.filter(s=>s.data===iso).map(s=>`<span class="chip st-${s.status}" title="${ST[s.status]}" onclick="event.stopPropagation();sched('${s.id}')">${esc(s.titulo)}</span>`).join('')}</div>`}
+ return `<h1>Calendário editorial</h1><p class="sub">Organize o que vai publicar. A publicação nas redes é manual nesta versão.</p><div class="card"><div class="row sp" style="margin-bottom:12px"><div class="row"><button class="btn s" onclick="mes(-1)" aria-label="Mês anterior">‹</button><b style="min-width:150px;text-align:center;text-transform:capitalize">${new Date(y,m,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'})}</b><button class="btn s" onclick="mes(1)" aria-label="Próximo mês">›</button></div><button class="btn p s" onclick="sched('','${hoje()}')">Nova programação</button></div>
+ <div class="cal">${['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'].map(x=>`<div class="h">${x}</div>`).join('')}${c}</div><div class="row" style="margin-top:12px">${Object.entries(ST).map(([k,v])=>`<span class="chip st-${k}" style="display:inline-block">${v}</span>`).join('')}</div></div>`}};
+
+/* ---------- Ações ---------- */
+function salvarPerfil(){const g=i=>$('#'+i).value.trim();if(!g('p_nome')){toast('Informe o nome do negócio.','err');return}
+ Object.assign(store.profile,{nome:g('p_nome'),segmento:g('p_seg'),desc:g('p_desc'),publico:g('p_pub'),cidade:g('p_cid'),dif:g('p_dif'),tom:g('p_tom'),cor1:$('#p_c1').value,cor2:$('#p_c2').value});
+ const f=$('#p_logo').files[0];
+ if(f){if(f.size>300000){toast('A logo passa de 300 KB. Escolha uma imagem menor.','err');return}const r=new FileReader();r.onload=()=>{store.profile.logo=r.result;save()&&toast('Perfil salvo!');render()};r.onerror=()=>toast('Não foi possível ler a imagem.','err');r.readAsDataURL(f);return}
+ save()&&toast('Perfil salvo!')}
+async function gerar(nova){if(nova)variacao++;else variacao=0;const g=i=>$('#'+i).value.trim(),prod=g('f_prod'),desc=g('f_desc');
+ ['f_prod','f_desc'].forEach(id=>$('#'+id).style.borderColor=g(id)?'':'var(--er)');
+ if(!prod||!desc){toast('Preencha o nome e a descrição do produto.','err');return}
+ const b=$('#gb');b.disabled=true;b.textContent='Gerando…';$('#res').innerHTML='<div class="card empty" role="status">Montando sua campanha com os dados do produto e da empresa…</div>';
+ try{gen=await GeradorIA.gerar({produto:prod,desc,preco:g('f_preco'),oferta:g('f_of'),publico:g('f_pub'),tom:g('f_tom'),dif:g('f_dif'),cta:g('f_cta'),objetivo:$('#f_obj').value,canal:$('#f_can').value,formato:$('#f_fmt').value},store.profile,{variacao});editing={};$('#res').innerHTML=resultado();toast('Campanha gerada! Revise e salve.')}catch(e){$('#res').innerHTML=erroCard(e);toast('Não foi possível gerar a campanha.','err')}b.disabled=false;b.textContent='Gerar campanha';$('#res').scrollIntoView({behavior:'smooth'})}
+let editing={};
+function cartoes(){return SEC.map(([k,l])=>`<div class="card"><div class="row sp"><h3 style="margin:0;color:var(--pr);font-size:15px">${l}</h3><div class="row"><button class="btn s" onclick="copiarSec('${k}')">Copiar</button><button class="btn s" onclick="editSec('${k}')">${editing[k]?'Cancelar':'Editar'}</button></div></div>${editing[k]?`<textarea id="x_${k}" style="margin-top:10px;min-height:${k==='titulo'||k==='cta'?60:120}px">${esc(gen[k])}</textarea><div style="margin-top:8px"><button class="btn p s" onclick="okSec('${k}')">Aplicar</button></div>`:`<p style="margin:10px 0 0;white-space:pre-wrap">${esc(gen[k])}</p>`}</div>`).join('')}
+function editSec(k){editing[k]=!editing[k];$('#res').innerHTML=resultado()}
+function okSec(k){const v=$('#x_'+k).value.trim();if(!v){toast('O campo não pode ficar vazio.','err');return}gen[k]=v;editing[k]=false;$('#res').innerHTML=resultado();toast('Alteração aplicada. Salve na biblioteca para guardar.')}
+function copiarTudo(){copiar(SEC.map(([k,l])=>l+'\n'+gen[k]).join('\n\n'))}
+function erroCard(e){return `<div class="card" style="border-color:var(--er)"><b style="color:var(--er)">Não foi possível gerar a campanha.</b><p>${esc(e&&e.message||'Erro inesperado.')} Seus dados continuam no formulário.</p><button class="btn" onclick="gerar()">Tentar novamente</button></div>`}
+function resultado(){const pf=store.profile,ex=(pf.nome||'').includes('(exemplo)');return `<div class="row sp" style="margin:6px 0 12px"><h2 style="margin:0">Pacote da campanha ${gen.fonte==='ia'?'<span class="tag">IA</span>':'<span class="tag demo">Demonstrativo</span>'}</h2><div class="row"><button class="btn" onclick="gerar(true)">Gerar outra abordagem</button><button class="btn" onclick="copiarTudo()">Copiar tudo</button><button class="btn p" onclick="salvarGen()">Salvar na biblioteca</button></div></div><div class="banner">${gen.fonte==='ia'?'Gerado por IA. Revise antes de publicar.':'Gerado pelo modelo de demonstração (sem IA real): ao pedir outra abordagem o texto muda pouco; a variedade criativa só existe com a IA conectada.'} Personalizado com: ${esc(pf.nome)}${pf.tom?`, tom "${esc(pf.tom)}"`:''}${pf.dif?', diferenciais':''}${pf.cidade?', cidade':''} e cores da marca.${ex?` Este é o perfil de exemplo: <a href="#" onclick="go('perfil');return false">preencha a página Empresa</a> para personalizar de verdade.`:''}</div>${cartoes()}`}
+function copiarSec(k){copiar(gen[k])}
+function salvarGen(){if(!gen)return;store.campaigns.unshift({...gen,id:uid(),criada:hoje()});gen=null;if(save())toast('Campanha salva na biblioteca!');go('lib')}
+function libList(){const q=view.q.toLowerCase(),l=store.campaigns.filter(c=>(!q||(c.titulo+c.produto).toLowerCase().includes(q))&&(!view.o||c.objetivo===view.o)&&(!view.c||c.canal===view.c));
+ $('#ll').innerHTML=l.length?l.map(c=>`<div class="card"><div class="row sp"><div><b>${esc(c.titulo)}</b> ${c.demo?'<span class="tag demo">Exemplo</span>':''}${c.fonte==='demo'&&!c.demo?' <span class="tag demo">Gerado em modo demonstração</span>':''}<br><small style="color:var(--mu)">${esc(c.produto)} · ${c.canal} · ${c.formato} · ${OBJ[c.objetivo]}</small></div></div><div class="row" style="margin-top:12px"><button class="btn s" onclick="abrir('${c.id}')">Abrir e editar</button><button class="btn s" onclick="copiar(find('${c.id}').legenda)">Copiar legenda</button><button class="btn s" onclick="copiar(find('${c.id}').cta)">Copiar chamada</button><button class="btn s" onclick="dup('${c.id}')">Duplicar</button><button class="btn s d" onclick="del('${c.id}')">Excluir</button></div></div>`).join(''):`<div class="card empty">${store.campaigns.length?'Nenhuma campanha encontrada com esses filtros.':'Sua biblioteca está vazia. Crie a primeira campanha.'}<br><br><button class="btn p" onclick="go('criar')">Criar campanha</button></div>`}
+const find=id=>store.campaigns.find(c=>c.id===id);
+function modal(h){$('#md').innerHTML=`<div class="modal" onclick="if(event.target===this)fechar()"><div class="mb">${h}</div></div>`}
+function fechar(){$('#md').innerHTML=''}
+function abrir(id){const c=find(id);if(!c)return;modal(`<h2>Editar campanha</h2>${SEC.map(([k,l])=>`<label>${l}</label><textarea id="e_${k}" style="min-height:${k==='titulo'||k==='cta'?60:110}px">${esc(c[k])}</textarea>`).join('')}<div class="row" style="margin-top:16px"><button class="btn p" onclick="salvarEd('${id}')">Salvar alterações</button><button class="btn" onclick="fechar()">Cancelar</button></div>`)}
+function salvarEd(id){const c=find(id);SEC.forEach(([k])=>c[k]=$('#e_'+k).value);if(!c.titulo.trim()){toast('O título não pode ficar vazio.','err');return}store.schedule.filter(s=>s.campId===id).forEach(s=>s.titulo=c.titulo);fechar();save()&&toast('Alterações salvas!');render()}
+function dup(id){const c=find(id),n={...c,id:uid(),titulo:c.titulo+' (cópia)',criada:hoje(),demo:false};store.campaigns.unshift(n);save()&&toast('Campanha duplicada!');render()}
+function del(id){modal(`<h2>Excluir campanha?</h2><p>Esta ação não pode ser desfeita. As programações ligadas a ela continuam no calendário.</p><div class="row"><button class="btn d" onclick="delOk('${id}')">Excluir</button><button class="btn" onclick="fechar()">Cancelar</button></div>`)}
+function delOk(id){store.campaigns=store.campaigns.filter(c=>c.id!==id);store.schedule.forEach(s=>{if(s.campId===id)s.campId=''});fechar();save()&&toast('Campanha excluída.');render()}
+function mes(d){cal.m+=d;if(cal.m<0){cal.m=11;cal.y--}if(cal.m>11){cal.m=0;cal.y++}render()}
+function sched(id,data){const s=store.schedule.find(x=>x.id===id)||{titulo:'',campId:'',data:data||hoje(),status:'ideia'};
+ modal(`<h2>${id?'Editar programação':'Nova programação'}</h2><label>Vincular a uma campanha</label><select id="s_c" onchange="const c=find(this.value);if(c)$('#s_t').value=c.titulo"><option value="">Sem campanha (ideia avulsa)</option>${store.campaigns.map(c=>`<option value="${c.id}" ${s.campId===c.id?'selected':''}>${esc(c.titulo)}</option>`).join('')}</select><label>Título</label><input id="s_t" value="${esc(s.titulo)}"><div class="g g2"><div><label>Data</label><input type="date" id="s_d" value="${s.data}"></div><div><label>Status</label><select id="s_s">${Object.entries(ST).map(([k,v])=>`<option value="${k}" ${s.status===k?'selected':''}>${v}</option>`).join('')}</select></div></div><div class="row" style="margin-top:16px"><button class="btn p" onclick="salvarSched('${id}')">Salvar programação</button><button class="btn" onclick="fechar()">Cancelar</button>${id?`<button class="btn d" onclick="delSched('${id}')">Excluir</button>`:''}</div>`)}
+function salvarSched(id){const t=$('#s_t').value.trim(),d=$('#s_d').value;if(!t||!d){toast('Informe o título e a data.','err');return}
+ const o={titulo:t,campId:$('#s_c').value,data:d,status:$('#s_s').value},s=store.schedule.find(x=>x.id===id);if(s)Object.assign(s,o);else store.schedule.push({id:uid(),...o});
+ const[y,m]=d.split('-');cal.y=+y;cal.m=+m-1;fechar();save()&&toast('Programação salva!');render()}
+function delSched(id){store.schedule=store.schedule.filter(s=>s.id!==id);fechar();save()&&toast('Programação excluída.');render()}
+load();render();
+</script></body></html>
